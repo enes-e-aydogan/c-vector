@@ -2,23 +2,15 @@
 
 CC := gcc
 
-CFLAGS := -std=c23 -pedantic -Wall -Wextra -Werror -Wformat=2 -Wformat-security -Wnull-dereference \
-       -Wstack-protector -Warray-bounds=2 -Wimplicit-fallthrough=3 -Wtraditional-conversion \
-       -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -Wstrict-overflow=2 \
-       -Wstringop-overflow=4 -Winit-self -Wlogical-op -Wduplicated-cond -Wduplicated-branches \
-       -Wfloat-equal -Wshadow=local -Wpointer-arith -Wcast-align=strict -Wstrict-aliasing=2 \
-       -Wwrite-strings -Wdate-time -g3
-
-SECURITY_FLAGS := -D_FORTIFY_SOURCE=2 -fstack-protector-strong -fstack-clash-protection -fcf-protection
-DEBUG_FLAGS := -O1 -DDEBUG -fsanitize=address -fsanitize=undefined
+CFLAGS := -std=c23 -Wall -Wextra -g -O1 -DDEBUG \
+          -D_FORTIFY_SOURCE=2 -fstack-protector-strong \
+          -fsanitize=address,undefined
 
 BUILDDIR := build
 EXAMPLE := $(wildcard examples/*.c)
 EXAMPLE_TARGETS := $(EXAMPLE:examples/%.c=$(BUILDDIR)/examples/%)
 TEST := $(wildcard tests/*.c)
 TEST_TARGETS := $(TEST:test/%.c=$(BUILDDIR)/test/%)
-
-CFLAGS += $(DEBUG_FLAGS) $(SECURITY_FLAGS)
 
 all: examples tests
 

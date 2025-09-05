@@ -55,6 +55,7 @@
       TYPE* new_data = realloc(vec->data, sizeof(TYPE) * new_cap);                                 \
       if (!new_data) return -1;                                                                    \
       vec->data = new_data;                                                                        \
+      vec->cap = new_cap;                                                                          \
     }                                                                                              \
     return 0;                                                                                      \
   }                                                                                                \

@@ -15,7 +15,7 @@
     size_t cap;                                                                                    \
   } NAME##_vec_t;                                                                                  \
                                                                                                    \
-  int NAME##_vec_new(NAME##_vec_t** vec) {                                                         \
+  static inline int NAME##_vec_new(NAME##_vec_t** vec) {                                           \
     if (!vec) return -1;                                                                           \
     *vec = (NAME##_vec_t*)malloc(sizeof(NAME##_vec_t));                                            \
     if (!*vec) return -1;                                                                          \
@@ -29,7 +29,7 @@
     return 0;                                                                                      \
   }                                                                                                \
                                                                                                    \
-  int NAME##_vec_grow(NAME##_vec_t* vec) {                                                         \
+  static inline int NAME##_vec_grow(NAME##_vec_t* vec) {                                           \
     size_t new_cap = vec->cap * 2;                                                                 \
     TYPE* new_data = realloc(vec->data, sizeof(TYPE) * new_cap);                                   \
     if (!new_data) return -1;                                                                      \
@@ -38,7 +38,7 @@
     return 0;                                                                                      \
   }                                                                                                \
                                                                                                    \
-  int NAME##_vec_push(NAME##_vec_t* vec, TYPE element) {                                           \
+  static inline int NAME##_vec_push(NAME##_vec_t* vec, TYPE element) {                             \
     if (!vec) return -1;                                                                           \
     if (vec->len == vec->cap) {                                                                    \
       if (NAME##_vec_grow(vec)) return -1;                                                         \
@@ -47,7 +47,7 @@
     return 0;                                                                                      \
   }                                                                                                \
                                                                                                    \
-  int NAME##_vec_pop(NAME##_vec_t* vec, TYPE* out) {                                               \
+  static inline int NAME##_vec_pop(NAME##_vec_t* vec, TYPE* out) {                                 \
     if (!vec || !out || vec->len == 0) return -1;                                                  \
     *out = (vec->data[vec->len-- - 1]);                                                            \
     if (vec->len < vec->cap / 2) {                                                                 \
@@ -60,25 +60,25 @@
     return 0;                                                                                      \
   }                                                                                                \
                                                                                                    \
-  int NAME##_vec_get(NAME##_vec_t* vec, size_t index, TYPE* out) {                                 \
+  static inline int NAME##_vec_get(NAME##_vec_t* vec, size_t index, TYPE* out) {                   \
     if (!vec || !out || index >= vec->len) return -1;                                              \
     *out = vec->data[index];                                                                       \
     return 0;                                                                                      \
   }                                                                                                \
                                                                                                    \
-  int NAME##_vec_set(NAME##_vec_t* vec, size_t index, TYPE element) {                              \
+  static inline int NAME##_vec_set(NAME##_vec_t* vec, size_t index, TYPE element) {                \
     if (!vec || index >= vec->len) return -1;                                                      \
     vec->data[index] = element;                                                                    \
     return 0;                                                                                      \
   }                                                                                                \
                                                                                                    \
-  int NAME##_vec_len(NAME##_vec_t* vec, size_t* out) {                                             \
+  static inline int NAME##_vec_len(NAME##_vec_t* vec, size_t* out) {                               \
     if (!vec || !out) return -1;                                                                   \
     *out = vec->len;                                                                               \
     return 0;                                                                                      \
   }                                                                                                \
                                                                                                    \
-  void NAME##_vec_free(NAME##_vec_t* vec) {                                                        \
+  static inline void NAME##_vec_free(NAME##_vec_t* vec) {                                          \
     if (vec) {                                                                                     \
       free(vec->data);                                                                             \
       free(vec);                                                                                   \

@@ -11,73 +11,73 @@
 #define DEFINE_VECTOR(TYPE, NAME)                                                                  \
   typedef struct {                                                                                 \
     TYPE* data;                                                                                    \
-    size_t size;                                                                                   \
-    size_t capacity;                                                                               \
-  } NAME##Vector;                                                                                  \
+    size_t len;                                                                                    \
+    size_t cap;                                                                                    \
+  } NAME##_vec_t;                                                                                  \
                                                                                                    \
-  int NAME##Vector_create(NAME##Vector** vec) {                                                    \
+  int NAME##_vec_new(NAME##_vec_t** vec) {                                                         \
     if (!vec) return -1;                                                                           \
-    *vec = (NAME##Vector*)malloc(sizeof(NAME##Vector));                                            \
+    *vec = (NAME##_vec_t*)malloc(sizeof(NAME##_vec_t));                                            \
     if (!*vec) return -1;                                                                          \
     (*vec)->data = (TYPE*)malloc(sizeof(TYPE) * CVECTOR_INIT_CAPACITY);                            \
     if (!(*vec)->data) {                                                                           \
       free(*vec);                                                                                  \
       return -1;                                                                                   \
     }                                                                                              \
-    (*vec)->size = 0;                                                                              \
-    (*vec)->capacity = CVECTOR_INIT_CAPACITY;                                                      \
+    (*vec)->len = 0;                                                                               \
+    (*vec)->cap = CVECTOR_INIT_CAPACITY;                                                           \
     return 0;                                                                                      \
   }                                                                                                \
                                                                                                    \
-  int NAME##Vector_resize(NAME##Vector* vec) {                                                     \
-    size_t new_capacity = vec->capacity * 2;                                                       \
-    TYPE* new_data = realloc(vec->data, sizeof(TYPE) * new_capacity);                              \
+  int NAME##_vec_grow(NAME##_vec_t* vec) {                                                         \
+    size_t new_cap = vec->cap * 2;                                                                 \
+    TYPE* new_data = realloc(vec->data, sizeof(TYPE) * new_cap);                                   \
     if (!new_data) return -1;                                                                      \
     vec->data = new_data;                                                                          \
-    vec->capacity = new_capacity;                                                                  \
+    vec->cap = new_cap;                                                                            \
     return 0;                                                                                      \
   }                                                                                                \
                                                                                                    \
-  int NAME##Vector_push(NAME##Vector* vec, TYPE element) {                                         \
+  int NAME##_vec_push(NAME##_vec_t* vec, TYPE element) {                                           \
     if (!vec) return -1;                                                                           \
-    if (vec->size == vec->capacity) {                                                              \
-      if (NAME##Vector_resize(vec)) return -1;                                                     \
+    if (vec->len == vec->cap) {                                                                    \
+      if (NAME##_vec_grow(vec)) return -1;                                                         \
     }                                                                                              \
-    vec->data[vec->size++] = element;                                                              \
+    vec->data[vec->len++] = element;                                                               \
     return 0;                                                                                      \
   }                                                                                                \
                                                                                                    \
-  int NAME##Vector_pop(NAME##Vector* vec, TYPE* out) {                                             \
-    if (!vec || !out || vec->size == 0) return -1;                                                 \
-    *out = (vec->data[vec->size-- - 1]);                                                           \
-    if (vec->size < vec->capacity / 2) {                                                           \
-      size_t new_capacity = vec->capacity / 2;                                                     \
-      TYPE* new_data = realloc(vec->data, sizeof(TYPE) * new_capacity);                            \
+  int NAME##_vec_pop(NAME##_vec_t* vec, TYPE* out) {                                               \
+    if (!vec || !out || vec->len == 0) return -1;                                                  \
+    *out = (vec->data[vec->len-- - 1]);                                                            \
+    if (vec->len < vec->cap / 2) {                                                                 \
+      size_t new_cap = vec->cap / 2;                                                               \
+      TYPE* new_data = realloc(vec->data, sizeof(TYPE) * new_cap);                                 \
       if (!new_data) return -1;                                                                    \
       vec->data = new_data;                                                                        \
     }                                                                                              \
     return 0;                                                                                      \
   }                                                                                                \
                                                                                                    \
-  int NAME##Vector_get(NAME##Vector* vec, size_t index, TYPE* out) {                               \
-    if (!vec || !out || index >= vec->size) return -1;                                             \
+  int NAME##_vec_get(NAME##_vec_t* vec, size_t index, TYPE* out) {                                 \
+    if (!vec || !out || index >= vec->len) return -1;                                              \
     *out = vec->data[index];                                                                       \
     return 0;                                                                                      \
   }                                                                                                \
                                                                                                    \
-  int NAME##Vector_set(NAME##Vector* vec, size_t index, TYPE element) {                            \
-    if (!vec || index >= vec->size) return -1;                                                     \
+  int NAME##_vec_set(NAME##_vec_t* vec, size_t index, TYPE element) {                              \
+    if (!vec || index >= vec->len) return -1;                                                      \
     vec->data[index] = element;                                                                    \
     return 0;                                                                                      \
   }                                                                                                \
                                                                                                    \
-  int NAME##Vector_size(NAME##Vector* vec, size_t* out) {                                          \
+  int NAME##_vec_len(NAME##_vec_t* vec, size_t* out) {                                             \
     if (!vec || !out) return -1;                                                                   \
-    *out = vec->size;                                                                              \
+    *out = vec->len;                                                                               \
     return 0;                                                                                      \
   }                                                                                                \
                                                                                                    \
-  void NAME##Vector_free(NAME##Vector* vec) {                                                      \
+  void NAME##_vec_free(NAME##_vec_t* vec) {                                                        \
     if (vec) {                                                                                     \
       free(vec->data);                                                                             \
       free(vec);                                                                                   \

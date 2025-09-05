@@ -16,12 +16,13 @@
   } NAME##Vector;                                                                                  \
                                                                                                    \
   int NAME##Vector_create(NAME##Vector** vec) {                                                    \
-    *vec = malloc(sizeof(NAME##Vector));                                                           \
+    if (!vec) return -1;                                                                           \
+    *vec = (NAME##Vector*)malloc(sizeof(NAME##Vector));                                            \
     if (!*vec) return -1;                                                                          \
-    (*vec)->data = malloc(sizeof(TYPE) * CVECTOR_INIT_CAPACITY);                                   \
+    (*vec)->data = (TYPE*)malloc(sizeof(TYPE) * CVECTOR_INIT_CAPACITY);                            \
     if (!(*vec)->data) {                                                                           \
-      return -1;                                                                                   \
       free(*vec);                                                                                  \
+      return -1;                                                                                   \
     }                                                                                              \
     (*vec)->size = 0;                                                                              \
     (*vec)->capacity = CVECTOR_INIT_CAPACITY;                                                      \
@@ -47,7 +48,7 @@
   }                                                                                                \
                                                                                                    \
   int NAME##Vector_pop(NAME##Vector* vec, TYPE* out) {                                             \
-    if (!vec || !out || size == 0) return -1;                                                      \
+    if (!vec || !out || vec->size == 0) return -1;                                                 \
     *out = (vec->data[vec->size-- - 1]);                                                           \
     if (vec->size < vec->capacity / 2) {                                                           \
       size_t new_capacity = vec->capacity / 2;                                                     \
@@ -59,7 +60,7 @@
   }                                                                                                \
                                                                                                    \
   int NAME##Vector_get(NAME##Vector* vec, size_t index, TYPE* out) {                               \
-    if (!vec || !out >= vec->size) return -1;                                                      \
+    if (!vec || !out || index >= vec->size) return -1;                                             \
     *out = vec->data[index];                                                                       \
     return 0;                                                                                      \
   }                                                                                                \
@@ -73,10 +74,10 @@
   int NAME##Vector_size(NAME##Vector* vec, size_t* out) {                                          \
     if (!vec || !out) return -1;                                                                   \
     *out = vec->size;                                                                              \
-    return 0                                                                                       \
+    return 0;                                                                                      \
   }                                                                                                \
                                                                                                    \
-  int NAME##Vector_free(NAME##Vector* vec) {                                                       \
+  void NAME##Vector_free(NAME##Vector* vec) {                                                      \
     if (vec) {                                                                                     \
       free(vec->data);                                                                             \
       free(vec);                                                                                   \

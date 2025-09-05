@@ -1,1 +1,24 @@
-[]
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-std=c23",
+      "-Wall",
+      "-Wextra",
+      "-g",
+      "-O1",
+      "-DDEBUG",
+      "-D_FORTIFY_SOURCE=2",
+      "-fstack-protector-strong",
+      "-fsanitize=address,undefined",
+      "-I.",
+      "-o",
+      "build/examples/int_vec",
+      "examples/int_vec.c"
+    ],
+    "directory": "/home/eeay/personal/c-vector",
+    "file": "/home/eeay/personal/c-vector/examples/int_vec.c",
+    "output": "/home/eeay/personal/c-vector/build/examples/int_vec"
+  }
+]

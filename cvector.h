@@ -121,5 +121,18 @@
     }                                                                                \
     return 0;                                                                        \
   }                                                                                  \
+                                                                                     \
+  static inline int str_vec_grow(str_vec_t* vec) {                                   \
+    if (!vec)                                                                        \
+      return -1;                                                                     \
+    size_t new_cap  = vec->cap * 2;                                                  \
+    char** new_data = (char**) realloc((char*) vec->str, new_cap * sizeof(char*));   \
+    if (!new_data)                                                                   \
+      return -1;                                                                     \
+    vec->str = new_data;                                                             \
+    vec->cap = new_cap;                                                              \
+    return 0;                                                                        \
+  }                                                                                  \
+                                                                                     \
 
 #endif

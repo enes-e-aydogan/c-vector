@@ -98,4 +98,12 @@
     }                                                                               \
   }
 
+#define DEFINE_STR_VECTOR \
+  typedef struct {        \
+    char** str;           \
+    size_t len;           \
+    size_t cap;           \
+  } str_vec_t;
+
+
 #endif

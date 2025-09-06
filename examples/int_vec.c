@@ -24,7 +24,7 @@ int main(void) {
   for (size_t i = 0; i < NUM_COUNT; i++) {
     if (int_vec_push(int_vec, nums[i]) != 0) {
       printf("Failed to push element %zu\n", i);
-      int_vec_free(int_vec);
+      int_vec_free(&int_vec);
       return 1;
     }
   }
@@ -60,7 +60,7 @@ int main(void) {
   }
   printf("\n");
 
-  int_vec_free(int_vec);
+  int_vec_free(&int_vec);
 
   return 0;
 }

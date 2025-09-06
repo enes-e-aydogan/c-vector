@@ -134,5 +134,22 @@
     return 0;                                                                        \
   }                                                                                  \
                                                                                      \
+  static inline int str_vec_push(str_vec_t* vec, const char* element) {              \
+    if (!vec)                                                                        \
+      return -1;                                                                     \
+    if (vec->len == vec->cap) {                                                      \
+      if (str_vec_grow(vec)) {                                                       \
+        return -1;                                                                   \
+      }                                                                              \
+    }                                                                                \
+    size_t needed = strlen(element) + 1;                                             \
+    char*  cpy    = malloc(needed);                                                  \
+    if (!cpy)                                                                        \
+      return -1;                                                                     \
+    strcpy(cpy, element);                                                            \
+    vec->str[vec->len++] = cpy;                                                      \
+    return 0;                                                                        \
+  }                                                                                  \
+                                                                                     \
 
 #endif

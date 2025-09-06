@@ -90,10 +90,11 @@
     return 0;                                                                       \
   }                                                                                 \
                                                                                     \
-  static inline void NAME##_vec_free(NAME##_vec_t* vec) {                           \
+  static inline void NAME##_vec_free(NAME##_vec_t** vec) {                          \
     if (vec) {                                                                      \
-      free(vec->data);                                                              \
-      free(vec);                                                                    \
+      free((*vec)->data);                                                           \
+      free((*vec));                                                                 \
+      *vec = nullptr;                                                               \
     }                                                                               \
   }
 

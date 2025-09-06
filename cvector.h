@@ -157,5 +157,10 @@
     return vec->str[vec->len-- - 1];                                                 \
   }                                                                                  \
                                                                                      \
+  static inline const char* str_vec_get(str_vec_t* vec, size_t index) {              \
+    if (!vec || index >= vec->len)                                                   \
+      return nullptr;                                                                \
+    return vec->str[index];                                                          \
+  }                                                                                  \
 
 #endif

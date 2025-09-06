@@ -1,131 +1,30 @@
-# .clang-format configuration for compact yet readable code
-# Based on LLVM style with customizations for better balance
+BasedOnStyle: Google
 
-BasedOnStyle: LLVM
-
-# Indentation and alignment
 IndentWidth: 2
 TabWidth: 2
 UseTab: Never
-ContinuationIndentWidth: 4
-IndentCaseLabels: true
-IndentPPDirectives: BeforeHash
 
-# Column limits for compactness while maintaining readability
 ColumnLimit: 100
-ReflowComments: true
 
-# Spacing for readability
-SpaceAfterCStyleCast: false
-SpaceAfterLogicalNot: false
-SpaceAfterTemplateKeyword: true
-SpaceBeforeAssignmentOperators: true
-SpaceBeforeCpp11BracedList: false
-SpaceBeforeCtorInitializerColon: true
-SpaceBeforeInheritanceColon: true
-SpaceBeforeParens: ControlStatements
-SpaceBeforeRangeBasedForLoopColon: true
-SpaceInEmptyBlock: false
-SpaceInEmptyParentheses: false
-SpacesBeforeTrailingComments: 2
-SpacesInAngles: false
-SpacesInContainerLiterals: true
-SpacesInCStyleCastParentheses: false
-SpacesInParentheses: false
-SpacesInSquareBrackets: false
-
-# Braces placement for compactness
 BreakBeforeBraces: Attach
-BraceWrapping:
-  AfterCaseLabel: false
-  AfterClass: false
-  AfterControlStatement: Never
-  AfterEnum: false
-  AfterFunction: false
-  AfterNamespace: false
-  AfterObjCDeclaration: false
-  AfterStruct: false
-  AfterUnion: false
-  AfterExternBlock: false
-  BeforeCatch: false
-  BeforeElse: false
-  BeforeLambdaBody: false
-  SplitEmptyFunction: false
-  SplitEmptyRecord: false
-  SplitEmptyNamespace: false
+AllowShortBlocksOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: false
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
 
-# Function and parameter formatting
-AllowShortFunctionsOnASingleLine: Inline
-AllowShortIfStatementsOnASingleLine: WithoutElse
-AllowShortLoopsOnASingleLine: true
-AllowShortCaseLabelsOnASingleLine: true
-AllowShortBlocksOnASingleLine: Always
-AllowShortLambdasOnASingleLine: All
-
-# Parameters and arguments
-BinPackParameters: true
-BinPackArguments: true
-AllowAllParametersOfDeclarationOnNextLine: false
-AllowAllArgumentsOnNextLine: false
-
-# Breaking and wrapping
-AlwaysBreakAfterReturnType: None
-AlwaysBreakBeforeMultilineStrings: false
-AlwaysBreakTemplateDeclarations: MultiLine
-BreakBeforeBinaryOperators: None
-BreakBeforeTernaryOperators: true
-BreakConstructorInitializers: BeforeColon
-BreakInheritanceList: BeforeColon
-BreakStringLiterals: true
-BreakAfterJavaFieldAnnotations: false
-
-# Constructor initializer lists
-ConstructorInitializerAllOnOneLineOrOnePerLine: false
-ConstructorInitializerIndentWidth: 4
-
-# Include sorting and spacing
-SortIncludes: true
-IncludeBlocks: Preserve
-MaxEmptyLinesToKeep: 1
-
-# Penalties for line breaking (lower = more likely to break)
-PenaltyBreakAssignment: 2
-PenaltyBreakBeforeFirstCallParameter: 19
-PenaltyBreakComment: 300
-PenaltyBreakFirstLessLess: 120
-PenaltyBreakString: 1000
-PenaltyExcessCharacter: 1000000
-PenaltyReturnTypeOnItsOwnLine: 1000
-
-# Alignment for readability
-AlignAfterOpenBracket: Align
-AlignConsecutiveAssignments: false
-AlignConsecutiveDeclarations: false
-AlignConsecutiveMacros: false
-AlignEscapedNewlines: Right
-AlignOperands: true
-AlignTrailingComments: true
-
-# Pointer and reference alignment
+IndentCaseLabels: true
+IndentCaseBlocks: true
+BreakBeforeBinaryOperators: NonAssignment
 PointerAlignment: Left
-ReferenceAlignment: Pointer
-DerivePointerAlignment: false
 
-# Language-specific settings
-Standard: Latest
-Cpp11BracedListStyle: true
-FixNamespaceComments: true
-NamespaceIndentation: None
-CompactNamespaces: false
+SpaceAfterCStyleCast: true
+SpaceBeforeParens: ControlStatements
 
-# Sorting and grouping
-SortUsingDeclarations: true
+AlignAfterOpenBracket: Align
+AlignOperands: true
+AlignConsecutiveAssignments: true
+AlignConsecutiveDeclarations: true
 
-# Miscellaneous
-KeepEmptyLinesAtTheStartOfBlocks: false
-IndentWrappedFunctionNames: false
-DisableFormat: false
-ForEachMacros:
-  - foreach
-  - Q_FOREACH
-  - BOOST_FOREACH
+SortIncludes: true
+IncludeBlocks: Regroup

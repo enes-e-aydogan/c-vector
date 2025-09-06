@@ -98,12 +98,28 @@
     }                                                                               \
   }
 
-#define DEFINE_STR_VECTOR \
-  typedef struct {        \
-    char** str;           \
-    size_t len;           \
-    size_t cap;           \
-  } str_vec_t;
-
+#define DEFINE_STR_VECTOR                                                            \
+  typedef struct {                                                                   \
+    char** str;                                                                      \
+    size_t len;                                                                      \
+    size_t cap;                                                                      \
+  } str_vec_t;                                                                       \
+                                                                                     \
+  static inline int str_vec_new(str_vec_t** vec) {                                   \
+    if (!vec)                                                                        \
+      return -1;                                                                     \
+    *vec = (str_vec_t*) malloc(sizeof(**vec));                                       \
+    if (!*vec)                                                                       \
+      return -1;                                                                     \
+    (*vec)->len = 0;                                                                 \
+    (*vec)->cap = CVECTOR_INIT_CAPACITY;                                             \
+    (*vec)->str = (char**) calloc((*vec)->cap, sizeof(char*));                       \
+    if (!(*vec)->str) {                                                              \
+      free(*vec);                                                                    \
+      *vec = nullptr;                                                                \
+      return -1;                                                                     \
+    }                                                                                \
+    return 0;                                                                        \
+  }                                                                                  \
 
 #endif

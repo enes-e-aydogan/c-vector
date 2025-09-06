@@ -3,6 +3,7 @@
 
 #include <stddef.h>
 #include <stdlib.h>
+#include <string.h>
 
 #ifndef CVECTOR_INIT_CAPACITY
 #define CVECTOR_INIT_CAPACITY 16
@@ -185,5 +186,16 @@
     *out = vec->len;                                                                 \
     return 0;                                                                        \
   }                                                                                  \
+                                                                                     \
+  static inline void str_vec_free(str_vec_t** vec) {                                 \
+    if (vec && (*vec)) {                                                             \
+      for (size_t i = 0; i < (*vec)->len; i++) {                                     \
+        free((*vec)->str[i]);                                                        \
+      }                                                                              \
+      free((char*) (*vec)->str);                                                     \
+      free((*vec));                                                                  \
+      *vec = nullptr;                                                                \
+    }                                                                                \
+  }
 
 #endif

@@ -178,5 +178,12 @@
                                                                                      \
     return 0;                                                                        \
   }                                                                                  \
+                                                                                     \
+  static inline int str_vec_len(str_vec_t* vec, size_t* out) {                       \
+    if (!vec || !out)                                                                \
+      return -1;                                                                     \
+    *out = vec->len;                                                                 \
+    return 0;                                                                        \
+  }                                                                                  \
 
 #endif

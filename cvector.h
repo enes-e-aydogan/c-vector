@@ -162,5 +162,21 @@
       return nullptr;                                                                \
     return vec->str[index];                                                          \
   }                                                                                  \
+                                                                                     \
+  static inline int str_vec_set(str_vec_t* vec, size_t index, const char* element) { \
+    if (!vec || !element || index >= vec->len)                                       \
+      return -1;                                                                     \
+                                                                                     \
+    size_t needed = strlen(element) + 1;                                             \
+    char*  cpy    = malloc(needed);                                                  \
+    if (!cpy)                                                                        \
+      return -1;                                                                     \
+    strcpy(cpy, element);                                                            \
+    free(vec->str[index]);                                                           \
+                                                                                     \
+    vec->str[index] = cpy;                                                           \
+                                                                                     \
+    return 0;                                                                        \
+  }                                                                                  \
 
 #endif

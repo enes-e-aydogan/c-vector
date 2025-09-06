@@ -151,5 +151,11 @@
     return 0;                                                                        \
   }                                                                                  \
                                                                                      \
+  static inline char* str_vec_pop(str_vec_t* vec) {                                  \
+    if (!vec || vec->len == 0)                                                       \
+      return nullptr;                                                                \
+    return vec->str[vec->len-- - 1];                                                 \
+  }                                                                                  \
+                                                                                     \
 
 #endif

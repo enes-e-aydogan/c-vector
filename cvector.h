@@ -32,6 +32,8 @@
   }                                                                                 \
                                                                                     \
   static inline int NAME##_vec_grow(NAME##_vec_t* vec) {                            \
+    if (!vec)                                                                       \
+      return -1;                                                                    \
     size_t new_cap  = vec->cap * 2;                                                 \
     TYPE*  new_data = realloc(vec->data, sizeof(TYPE) * new_cap);                   \
     if (!new_data)                                                                  \

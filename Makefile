@@ -2,7 +2,7 @@
 
 CC := gcc
 
-CFLAGS := -std=c23 -Wall -Wextra -g -O1 -DDEBUG \
+CFLAGS := -std=c17 -Wall -Wextra -g -O1 -DDEBUG \
           -D_FORTIFY_SOURCE=2 -fstack-protector-strong \
           -fsanitize=address,undefined
 

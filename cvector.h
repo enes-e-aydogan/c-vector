@@ -95,7 +95,7 @@
     if (vec) {                                                                      \
       free((*vec)->data);                                                           \
       free((*vec));                                                                 \
-      *vec = nullptr;                                                               \
+      *vec = NULL;                                                               \
     }                                                                               \
   }
 
@@ -117,7 +117,7 @@
     (*vec)->str = (char**) calloc((*vec)->cap, sizeof(char*));                       \
     if (!(*vec)->str) {                                                              \
       free(*vec);                                                                    \
-      *vec = nullptr;                                                                \
+      *vec = NULL;                                                                \
       return -1;                                                                     \
     }                                                                                \
     return 0;                                                                        \
@@ -154,13 +154,13 @@
                                                                                      \
   static inline char* str_vec_pop(str_vec_t* vec) {                                  \
     if (!vec || vec->len == 0)                                                       \
-      return nullptr;                                                                \
+      return NULL;                                                                \
     return vec->str[vec->len-- - 1];                                                 \
   }                                                                                  \
                                                                                      \
   static inline const char* str_vec_get(str_vec_t* vec, size_t index) {              \
     if (!vec || index >= vec->len)                                                   \
-      return nullptr;                                                                \
+      return NULL;                                                                \
     return vec->str[index];                                                          \
   }                                                                                  \
                                                                                      \
@@ -194,7 +194,7 @@
       }                                                                              \
       free((char*) (*vec)->str);                                                     \
       free((*vec));                                                                  \
-      *vec = nullptr;                                                                \
+      *vec = NULL;                                                                \
     }                                                                                \
   }
 

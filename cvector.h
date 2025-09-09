@@ -11,7 +11,7 @@
 
 #define DEFINE_VECTOR(TYPE, NAME)                                                   \
   typedef struct {                                                                  \
-    TYPE*  data;                                                                    \
+    (TYPE) * data;                                                                  \
     size_t len;                                                                     \
     size_t cap;                                                                     \
   } NAME##_vec_t;                                                                   \
@@ -35,8 +35,8 @@
   static inline int NAME##_vec_grow(NAME##_vec_t* vec) {                            \
     if (!vec)                                                                       \
       return -1;                                                                    \
-    size_t new_cap  = vec->cap * 2;                                                 \
-    TYPE*  new_data = realloc(vec->data, sizeof(TYPE) * new_cap);                   \
+    size_t new_cap   = vec->cap * 2;                                                \
+    (TYPE)* new_data = realloc(vec->data, sizeof(TYPE) * new_cap);                  \
     if (!new_data)                                                                  \
       return -1;                                                                    \
     vec->data = new_data;                                                           \
@@ -55,13 +55,13 @@
     return 0;                                                                       \
   }                                                                                 \
                                                                                     \
-  static inline int NAME##_vec_pop(NAME##_vec_t* vec, TYPE* out) {                  \
+  static inline int NAME##_vec_pop(NAME##_vec_t* vec, (TYPE) * out) {               \
     if (!vec || !out || vec->len == 0)                                              \
       return -1;                                                                    \
     *out = (vec->data[vec->len-- - 1]);                                             \
     if (vec->len < vec->cap / 2) {                                                  \
-      size_t new_cap  = vec->cap / 2;                                               \
-      TYPE*  new_data = realloc(vec->data, sizeof(TYPE) * new_cap);                 \
+      size_t new_cap   = vec->cap / 2;                                              \
+      (TYPE)* new_data = realloc(vec->data, sizeof(TYPE) * new_cap);                \
       if (!new_data)                                                                \
         return -1;                                                                  \
       vec->data = new_data;                                                         \
@@ -70,7 +70,7 @@
     return 0;                                                                       \
   }                                                                                 \
                                                                                     \
-  static inline int NAME##_vec_get(NAME##_vec_t* vec, size_t index, TYPE* out) {    \
+  static inline int NAME##_vec_get(NAME##_vec_t* vec, size_t index, (TYPE) * out) { \
     if (!vec || !out || index >= vec->len)                                          \
       return -1;                                                                    \
     *out = vec->data[index];                                                        \
@@ -95,7 +95,7 @@
     if (vec) {                                                                      \
       free((*vec)->data);                                                           \
       free((*vec));                                                                 \
-      *vec = NULL;                                                               \
+      *vec = NULL;                                                                  \
     }                                                                               \
   }
 
@@ -117,7 +117,7 @@
     (*vec)->str = (char**) calloc((*vec)->cap, sizeof(char*));                       \
     if (!(*vec)->str) {                                                              \
       free(*vec);                                                                    \
-      *vec = NULL;                                                                \
+      *vec = NULL;                                                                   \
       return -1;                                                                     \
     }                                                                                \
     return 0;                                                                        \
@@ -154,13 +154,13 @@
                                                                                      \
   static inline char* str_vec_pop(str_vec_t* vec) {                                  \
     if (!vec || vec->len == 0)                                                       \
-      return NULL;                                                                \
+      return NULL;                                                                   \
     return vec->str[vec->len-- - 1];                                                 \
   }                                                                                  \
                                                                                      \
   static inline const char* str_vec_get(str_vec_t* vec, size_t index) {              \
     if (!vec || index >= vec->len)                                                   \
-      return NULL;                                                                \
+      return NULL;                                                                   \
     return vec->str[index];                                                          \
   }                                                                                  \
                                                                                      \
@@ -194,7 +194,7 @@
       }                                                                              \
       free((char*) (*vec)->str);                                                     \
       free((*vec));                                                                  \
-      *vec = NULL;                                                                \
+      *vec = NULL;                                                                   \
     }                                                                                \
   }
 

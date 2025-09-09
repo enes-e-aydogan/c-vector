@@ -44,7 +44,7 @@
     return 0;                                                                       \
   }                                                                                 \
                                                                                     \
-  static inline int NAME##_vec_push(NAME##_vec_t* vec, TYPE* element) {             \
+  static inline int NAME##_vec_push(NAME##_vec_t* vec, TYPE element) {              \
     if (!vec)                                                                       \
       return -1;                                                                    \
     if (vec->len == vec->cap) {                                                     \
@@ -95,7 +95,7 @@
     if (vec) {                                                                      \
       free((*vec)->data);                                                           \
       free((*vec));                                                                 \
-      *vec = NULL;                                                                  \
+      *vec = NULL;                                                               \
     }                                                                               \
   }
 
@@ -117,7 +117,7 @@
     (*vec)->str = (char**) calloc((*vec)->cap, sizeof(char*));                       \
     if (!(*vec)->str) {                                                              \
       free(*vec);                                                                    \
-      *vec = NULL;                                                                   \
+      *vec = NULL;                                                                \
       return -1;                                                                     \
     }                                                                                \
     return 0;                                                                        \
@@ -154,13 +154,13 @@
                                                                                      \
   static inline char* str_vec_pop(str_vec_t* vec) {                                  \
     if (!vec || vec->len == 0)                                                       \
-      return NULL;                                                                   \
+      return NULL;                                                                \
     return vec->str[vec->len-- - 1];                                                 \
   }                                                                                  \
                                                                                      \
   static inline const char* str_vec_get(str_vec_t* vec, size_t index) {              \
     if (!vec || index >= vec->len)                                                   \
-      return NULL;                                                                   \
+      return NULL;                                                                \
     return vec->str[index];                                                          \
   }                                                                                  \
                                                                                      \
@@ -194,7 +194,7 @@
       }                                                                              \
       free((char*) (*vec)->str);                                                     \
       free((*vec));                                                                  \
-      *vec = NULL;                                                                   \
+      *vec = NULL;                                                                \
     }                                                                                \
   }
 

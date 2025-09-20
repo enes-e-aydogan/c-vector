@@ -11,7 +11,7 @@
 DEFINE_STR_VECTOR
 
 int main() {
-  str_vec_t* str_vec = nullptr;
+  str_vec_t* str_vec = NULL;
 
   if (str_vec_new(&str_vec)) {
     fprintf(stderr, "Error: str_vec_new");

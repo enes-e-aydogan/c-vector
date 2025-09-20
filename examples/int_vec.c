@@ -10,7 +10,7 @@
 DEFINE_VECTOR(int, int)
 
 int main(void) {
-  int_vec_t* int_vec = nullptr;
+  int_vec_t* int_vec = NULL;
 
   if (int_vec_new(&int_vec) != 0) {
     printf("Failed to create vector\n");
